@@ -1,7 +1,11 @@
 import { api } from 'boot/axios'
 
-export default {
-  findByCode(params) {
-    return api.get(params)
+const userService = () => {
+  const findByCode = (params) => {
+    return api.get(params);
   }
+
+  return { findByCode };
 }
+
+export default userService;

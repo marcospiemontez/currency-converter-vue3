@@ -36,7 +36,7 @@
 
 <script setup>
   import { ref, onMounted } from 'vue';
-  import converterService from 'src/composible/converterService'
+  import userService from 'src/composible/converterService'
 
   const codeOptions = ([{ label: 'USD', value: '$' }, { label: 'EUR', value: '€' }, { label: 'BRL', value: 'R$' }]);
   const codeInOptions = ref([{ label: 'USD', value: '$' }, { label: 'EUR', value: '€' }, { label: 'BRL', value: 'R$' }]);
@@ -50,9 +50,9 @@
   const bitcoinToday = ref('');
 
   onMounted(async () => {
-    await getDolar();
-    await getEuro();
-    await getBitcoin();
+    getDolar();
+    getEuro();
+    getBitcoin();
   });
 
   const selectCurrency = () => {
@@ -70,7 +70,7 @@
     let queryResponse = queryRequest.replace('-', '');
     let dolar = '';
     let currency = [];
-    await converterService.findByCode(queryRequest).then((response) => {
+    await userService().findByCode(queryRequest).then((response) => {
       const {data} = response;
       currency = data[queryResponse];
       dolar = Number(currency['high']);
@@ -84,7 +84,7 @@
     let queryResponse = queryRequest.replace('-', '');
     let euro = '';
     let currency = [];
-    await converterService.findByCode(queryRequest).then((response) => {
+    await userService().findByCode(queryRequest).then((response) => {
       const {data} = response;
       currency = data[queryResponse];
       euro = Number(currency['high']);
@@ -98,7 +98,7 @@
     let queryResponse = queryRequest.replace('-', '');
     let bitcoin = '';
     let currency = [];
-    await converterService.findByCode(queryRequest).then((response) => {
+    await userService().findByCode(queryRequest).then((response) => {
       const {data} = response;
       currency = data[queryResponse];
       bitcoin = Number(currency['high']);
